@@ -1,0 +1,22 @@
+extends layout
+
+block content
+ h1= title
+ - var results = [{"Car_Company":"Lamborghini","Car_Model":"Aventador","Car_Cost":"44400$"},{"Car_Company":"Rolls royce","Car_Model":"Ghost","Car_Cost":"34300$"},{"Car_Company":"Audi","Car_Model":"Sadan","Car_Cost":"5500$"}];
+ div(class="container-fluid")
+    div(class="row")
+    each item in results
+      div(class="col-sm-2") Car Company:#{item.Car_Company}, Car Model:#{item.Car_Model}, Car Cost:#{item.Car_Cost}
+ br
+ h6='Bonus - Click on any item below to get the price:'
+ div(class="container-fluid")
+  each item,index  in results
+   div(class="row", onclick=`buy(${index})`)
+    div(class="col-sm-2")  Car Company:#{item.Car_Company}, Car Model:#{item.Car_Model}, Car Cost:#{item.Car_Cost}
+
+  script. 
+        function buy(price){
+          alert('You purchased item ' + price)
+        }
+
+
