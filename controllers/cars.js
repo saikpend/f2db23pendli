@@ -12,6 +12,19 @@ exports.cars_list = async function(req, res) {
     }
     };
 
+    // VIEWS
+// Handle a show all view
+exports.cars_view_all_Page = async function(req, res) {
+    try{
+    theCars = await cars.find();
+    res.render('cars', { title: 'cars Search Results', results: theCars });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
+
 // List of all cars
 //exports.cars_list = function(req, res) {
 //res.send('NOT IMPLEMENTED: cars list');
@@ -32,3 +45,24 @@ res.send('NOT IMPLEMENTED: cars delete DELETE ' + req.params.id);
 exports.cars_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: cars update PUT' + req.params.id);
 };
+
+// Handle Costume create on POST.
+exports.cars_create_post = async function(req, res) {
+    console.log(req.body)
+    let document = new cars();
+    // We are looking for a body, since POST does not have query parameters.
+    // Even though bodies can be in many different formats, we will be picky
+    // and require that it be a json object
+    // {"Car_Company":"lambhorgini", "Car_Model":"canvas", "Car_Cost":21222}
+    document.Car_Company = req.body.Car_Company;
+    document.Car_Model = req.body.Car_Model;
+    document.Car_Cost = req.body.Car_Cost;
+    try{
+    let result = await document.save();
+    res.send(result);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
