@@ -1,8 +1,21 @@
 var cars = require('../models/cars');
+
 // List of all cars
-exports.cars_list = function(req, res) {
-res.send('NOT IMPLEMENTED: cars list');
-};
+exports.cars_list = async function(req, res) {
+    try{
+    theCars = await cars.find();
+    res.send(theCars);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
+
+// List of all cars
+//exports.cars_list = function(req, res) {
+//res.send('NOT IMPLEMENTED: cars list');
+//};
 // for a specific cars.
 exports.cars_detail = function(req, res) {
 res.send('NOT IMPLEMENTED: cars detail: ' + req.params.id);
