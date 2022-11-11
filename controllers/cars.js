@@ -77,4 +77,25 @@ exports.cars_detail = async function(req, res) {
         res.status(500) 
         res.send(`{"error": document for id ${req.params.id} not found`); 
     } 
-}; 
+};
+
+// Handle Cars update form on PUT. 
+exports.cars_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await cars.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.Car_Company)  
+               toUpdate.Car_Company = req.body.Car_Company; 
+        if(req.body.Car_Cost) toUpdate.Car_Cost = req.body.Car_Cost; 
+        if(req.body.Car_Model) toUpdate.Car_Model = req.body.Car_Model; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id}s 
+failed`); 
+    } 
+};
