@@ -1,0 +1,46 @@
+extends layout 
+ 
+block content 
+  h1= title
+  if (toShow == null)
+    h2 No instance to show details
+  else 
+ 
+      - let car_id = toShow._id 
+      - let Car_Company = toShow.Car_Company 
+      - let Car_Cost = toShow.Car_Cost 
+      - let Car_Model = toShow.Car_Model 
+      
+      div.row(class='mb-2') 
+        div.mr-1 ID is 
+        div #{car_id} 
+      - let actionid = "/resource/cars/" + car_id 
+      form(id='CarsForm', action= actionid, method="PUT") 
+        div.form-group 
+            label.carsAttr(for='Car_Company') Car Company 
+            input#Car_Company(type='text', name='Car_Company', value= Car_Company ) 
+        div.form-group 
+            label.carsAttr(for='Car_Model') Car Model
+            input#Car_Model(type='text', name='Car_Model', value= Car_Model ) 
+        div.form-group 
+            label.carsAttr(for='Car_Cost') Car Cost
+            input#Car_Cost(type='number', name='Car_Cost', value= Car_Cost ) 
+        input(type="submit") 
+    
+      script. 
+        document.forms['CarsForm'].addEventListener('submit', (event) => { 
+          event.preventDefault(); 
+          // TODO do something here to show user that form is being submitted 
+          fetch(event.target.action, { 
+            method: 'PUT', 
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+          }).then((resp) => { 
+            return resp.json(); // or resp.text() or whatever the server sends 
+          }).then((body) => { 
+            alert("Update succeded") 
+            // TODO handle body 
+          }).catch((error) => { 
+            // TODO handle error 
+            alert("Update failed " + error ) 
+          }); 
+        }); 

@@ -1,20 +1,23 @@
 extends layout
 block content
  h1= title
- - let car_id = toShow._id
- - let Car_Company = toShow.Car_Company
- - let Car_Cost = toShow.Car_Cost
- - let Car_Model = toShow.Car_Model
- div
-  div.row
-   div(class='carsAttr mr-3') car ID is:
-   div #{car_id}
-  div.row
-   div(class='carsAttr mr-3') Car Company is:
-   div #{Car_Company}
-  div.row
-   div(class='carsAttr mr-3') Car Cost is:
-   div #{Car_Cost}
-  div.row
-   div(class='carsAttr mr-3') Car Model is:
-   div #{Car_Model}
+ if (toShow == null)
+    h2 No instance to show details
+ else 
+    - let car_id = toShow._id
+    - let Car_Company = toShow.Car_Company
+    - let Car_Cost = toShow.Car_Cost
+    - let Car_Model = toShow.Car_Model
+    div
+    div.row
+    div(class='carsAttr mr-3') car ID is:
+    div #{car_id}
+    div.row
+    div(class='carsAttr mr-3') Car Company is:
+    div #{Car_Company}
+    div.row
+    div(class='carsAttr mr-3') Car Cost is:
+    div #{Car_Cost}
+    div.row
+    div(class='carsAttr mr-3') Car Model is:
+    div #{Car_Model}

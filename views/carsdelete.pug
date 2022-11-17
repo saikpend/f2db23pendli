@@ -1,0 +1,53 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+    - let car_id = toShow._id 
+    - let Car_Company = toShow.Car_Company 
+    - let Car_Model = toShow.Car_Model
+    - let Car_Cost = toShow.Car_Cost
+    - let actionid = "/resource/cars/" + car_id 
+    script let actionid = "#{actionid}" 
+    div 
+      div.row 
+        div(class='carsAttr mr-3') Car ID is: 
+        div #{car_id} 
+      div.row 
+        div(class='carsAttr mr-3') Car Company is: 
+        div #{Car_Company} 
+      div.row 
+        div(class='carsAttr mr-3') Car Model is: 
+        div #{Car_Model} 
+      div.row 
+        div(class='carsAttr mr-3') Car Cost is: 
+        div #{Car_Cost} 
+ 
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel 
+ 
+  script. 
+    function cancel() { 
+      // Go back to the home page for the cars collection 
+      window.location.href='/cars' 
+    } 
+  script. 
+    function deleteOnid() { 
+      console.log("starting delete") 
+      // delete first // Don't need a body for the delete 
+      fetch(actionid, { 
+        method: 'DELETE'      
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Delete succeded") 
+        window.location.href='/cars' 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Delete failed " + error ) 
+      }); 
+    } 

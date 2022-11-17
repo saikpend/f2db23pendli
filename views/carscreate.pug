@@ -1,0 +1,35 @@
+extends layout 
+ 
+block content 
+  h1(style="text-align: center; color: #0542D8; font-weight: bold; font-style: italic;")= title
+  div(class='container' style="text-align: center; width: 700px;")
+ 
+    form(id='CarsForm', action="/resource/cars", method="POST") 
+      div.form-group 
+          label.carsAttr(for='cars_type') Cars  type 
+          input#cars_type(type='text', name='cars_type') 
+      div.form-group 
+          label.carsAttr(for='size') Cars  size 
+          input#size(type='text', name='size') 
+      div.form-group 
+          label.carsAttr(for='cost') Cars  cost 
+          input#cost(type='number', name='cost') 
+      input(type="submit" class="btn btn-warning") 
+  
+    script. 
+      document.forms['CarsForm'].addEventListener('submit', (event) => { 
+        event.preventDefault(); 
+        // TODO do something here to show user that form is being submitted 
+        fetch(event.target.action, { 
+          method: 'POST', 
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+        }).then((resp) => { 
+          return resp.json(); // or resp.text() or whatever the server sends 
+        }).then((body) => { 
+          alert("Save succeded") 
+          // TODO handle body 
+        }).catch((error) => { 
+          // TODO handle error 
+          alert("Save failed " + error ) 
+        }); 
+      }); 
