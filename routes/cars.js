@@ -6,6 +6,9 @@ var router = express.Router();
 router.get('/cars/:id', cars_controlers.cars_detail); 
 
 /* GET home page. */
-router.get('/', cars_controlers.cars_view_all_Page)
+router.get('/', cars_controlers.cars_view_all_Page);
+
+/* GET detail cars page */
+router.get('/detail', cars_controlers.cars_view_one_Page);
  
 module.exports = router;
